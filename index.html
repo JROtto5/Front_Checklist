@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARMOR® Checklist Follow-up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1f1f 50%, #1a1a1a 100%);
+            min-height: 100vh;
+            color: #1F2937;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #8B0000 0%, #1a1a1a 100%);
+            border-radius: 16px 16px 0 0;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            width: 180px;
+            margin-bottom: 16px;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.9);
+            color: #1a1a1a;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+        }
+
+        .customer-info {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .customer-info span {
+            color: rgba(255,255,255,0.7);
+            font-size: 13px;
+        }
+
+        .customer-info strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: 0 0 16px 16px;
+            padding: 32px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+        }
+
+        .intro {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-left: 4px solid #F59E0B;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 28px;
+        }
+
+        .intro h2 {
+            color: #92400E;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .intro p {
+            color: #78350F;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Good Indicators Section */
+        .good-section {
+            background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+            border-left: 4px solid #059669;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .good-section h3 {
+            color: #065F46;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .good-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #047857;
+            font-size: 14px;
+            padding: 6px 0;
+        }
+
+        .good-item .check {
+            color: #059669;
+            font-weight: bold;
+        }
+
+        /* Indicator Cards */
+        .indicator-card {
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .indicator-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .indicator-card.bad {
+            border-left: 4px solid #DC2626;
+        }
+
+        .indicator-card.inconclusive {
+            border-left: 4px solid #F59E0B;
+        }
+
+        .indicator-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .indicator-card.bad .indicator-header {
+            background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+        }
+
+        .indicator-card.inconclusive .indicator-header {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+        }
+
+        .indicator-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .indicator-card.bad .indicator-icon {
+            background: #DC2626;
+            color: white;
+        }
+
+        .indicator-card.inconclusive .indicator-icon {
+            background: #F59E0B;
+            color: white;
+        }
+
+        .indicator-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .indicator-card.bad .indicator-title {
+            color: #991B1B;
+        }
+
+        .indicator-card.inconclusive .indicator-title {
+            color: #92400E;
+        }
+
+        .indicator-description {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #4B5563;
+        }
+
+        .indicator-response {
+            padding: 16px 20px;
+            background: #F9FAFB;
+        }
+
+        .indicator-response label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .indicator-response textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .indicator-response textarea:focus {
+            outline: none;
+            border-color: #F59E0B;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+        }
+
+        .indicator-response textarea::placeholder {
+            color: #9CA3AF;
+        }
+
+        /* Submit Section */
+        .submit-section {
+            margin-top: 32px;
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #8B0000 0%, #6B0000 100%);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 0, 0, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-note {
+            margin-top: 12px;
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+        }
+
+        .footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        /* Error State */
+        .error-state {
+            background: white;
+            border-radius: 16px;
+            padding: 48px 32px;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+        }
+
+        .error-state h2 {
+            color: #DC2626;
+            margin-bottom: 12px;
+        }
+
+        .error-state p {
+            color: #6B7280;
+        }
+
+        /* Loading State */
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 16px 12px;
+            }
+
+            .header, .main-content {
+                padding: 24px 20px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .indicator-header {
+                flex-direction: column;
+            }
+
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <img src="https://cdn.prod.website-files.com/67a7fe8d2243c7806ce49410/67c2436784f3a93ef0581470_armordial-logo-s.png" alt="ARMOR" class="logo">
+            <div class="header-badge">Context Needed</div>
+            <h1>Checklist Follow-up</h1>
+            <p class="subtitle">Please provide additional details to complete your review</p>
+            <div class="customer-info" id="customerInfo">
+                <span>Customer:</span> <strong id="customerName">Loading...</strong>
+                <span style="margin-left: 16px;">ID:</span> <strong id="customerId">...</strong>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <div class="intro">
+                <h2>
+                    <span>&#128221;</span>
+                    Why We Need This Information
+                </h2>
+                <p>
+                    Thanks for submitting your checklist. We need to clarify a few responses to complete our review
+                    and assess potential appeal options with carriers. Please provide details for each item below.
+                </p>
+            </div>
+
+            <!-- Good Indicators (shown if any) -->
+            <div class="good-section hidden" id="goodSection">
+                <h3>&#10003; What You're Doing Well</h3>
+                <div id="goodItems"></div>
+            </div>
+
+            <!-- Indicator Cards Container -->
+            <div id="indicatorCards"></div>
+
+            <!-- Submit Section -->
+            <div class="submit-section">
+                <button type="button" class="submit-btn" onclick="sendEmail()">
+                    <span>&#9993;</span>
+                    Send to ARMOR Team
+                </button>
+                <p class="submit-note">This will open your email client with your responses</p>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-state hidden" id="errorState">
+            <h2>Missing Information</h2>
+            <p>This link appears to be incomplete. Please use the link from your ARMOR email.</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>ARMOR® Reputation Management by <a href="https://phoneburner.com">PhoneBurner</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Indicator definitions with full descriptions
+        const INDICATORS = {
+            // Bad indicators
+            h: {
+                type: 'bad',
+                title: 'Calls Are Not Requested By Recipients',
+                description: 'Carriers consider calls that are not explicitly requested by recipients to be deserving of spam flags, especially when there is evidence of negative consumer feedback such as low answer rates, short call durations, customer complaints, or number blocks. When calls are viewed as unexpected or unsolicited, remediation options are extremely limited, and ARMOR is not able to pursue further remediation until calling practices or consumer feedback change materially.'
+            },
+            i: {
+                type: 'bad',
+                title: 'Requested Calls Are Not Made In A Timely Manner',
+                description: 'Carriers assess whether requested calls remain expected based on how quickly the call is placed after consent is given. When calls occur too long after a request, they are often no longer expected by the recipient and may result in negative signals. In these cases, remediation options are limited, and further remediation cannot be pursued until call timing improves.'
+            },
+            j: {
+                type: 'bad',
+                title: 'Lead Quality Is Not Sufficient',
+                description: 'Carriers may maintain that a spam flag is warranted when lead targeting is too broad, lead data is outdated or inaccurate, or recipients do not recognize or expect the call. This can occur with unsolicited sales outreach, or even when leads have provided indirect consent through third-party sources, where recipients may receive calls from many companies at once and respond with complaints or blocks. When this occurs, ARMOR is unable to pursue further remediation until lead practices and recipient expectations improve materially.'
+            },
+            k: {
+                type: 'bad',
+                title: 'Call Frequency Or Timing Creates Nuisance Signals',
+                description: 'Even requested calls can become a nuisance if they are too frequent, too close together, or placed at inopportune times. Based on your checklist responses, carriers are likely to view your calls as too frequent/persistent or not reasonably timed. When this occurs, they reject flag removal requests, which limits available remediation options until call pacing and timing change materially.'
+            },
+            // Inconclusive indicators
+            l: {
+                type: 'inconclusive',
+                title: 'Unclear Call Purpose',
+                description: 'Carriers evaluate whether calls are appropriate based on a clear, consistent call purpose. Please describe what your business does, who you call, and the primary purpose of your calls.'
+            },
+            m: {
+                type: 'inconclusive',
+                title: 'Unclear Timing Between Consent And Call',
+                description: 'Carriers assess whether requested calls remain expected based on how quickly the call is placed after consent is given. Please describe your process for making timely calls, including how soon calls are placed after a request.'
+            },
+            n: {
+                type: 'inconclusive',
+                title: 'Unclear Lead Sources Or Processes',
+                description: 'Lead quality creates clear signals carriers use to evaluate whether calls are expected and/or well-received by recipients. Please describe how you get your leads, and ensure they are well-targeted to your product/service. Do recipients request a call from your company specifically, or do leads come via a third party? Describe how you ensure leads remain accurate and up to date (including removing reassigned numbers).'
+            },
+            o: {
+                type: 'inconclusive',
+                title: '3rd Party Lead Sources Require Context',
+                description: 'Calls to third-party leads are more likely to generate complaints, since recipients may not recall requesting outreach from your company specifically or may receive similar calls from multiple businesses. Please describe how you introduce yourself at the start of the call, explain why you\'re reaching out, and confirm the recipient is interested in continuing the conversation.'
+            },
+            p: {
+                type: 'inconclusive',
+                title: 'Numbers Used For Multiple Call Purposes',
+                description: 'Using the same number for multiple call purposes—such as sales and service calls—can create inconsistent signals that increase the likelihood of flags. Carriers expect numbers to be used for a single call purpose. Please confirm whether your numbers are used for multiple call purposes.'
+            },
+            q: {
+                type: 'inconclusive',
+                title: 'Do-Not-Call Process Unclear',
+                description: 'Carriers expect clear Do-Not-Call controls to ensure recipients on the list are not contacted. Please describe how you prevent calling contacts on the Do-Not-Call list, how opt-out options are disclosed to contacts, and how opt-out requests are handled and enforced whenever a contact makes a request.'
+            },
+            r: {
+                type: 'inconclusive',
+                title: 'Call Timing And Frequency Controls Unclear',
+                description: 'Even requested calls can become a nuisance if they are too frequent, too close together, or placed at inopportune times. Please describe how call timing is determined (including days and times calls are placed) and how call frequency is limited, including how many times a person may be called over a given period.'
+            },
+            // Good indicators
+            a: { type: 'good', title: 'Calls are to existing customers' },
+            b: { type: 'good', title: 'Calls are requested' },
+            c: { type: 'good', title: 'Requested calls made in a timely manner' },
+            d: { type: 'good', title: 'Filters out reassigned numbers' },
+            e: { type: 'good', title: 'Wanted calls & CNAM registered' },
+            f: { type: 'good', title: 'Do-Not-Call process is clear' },
+            g: { type: 'good', title: 'Call frequency and timing limits in place' }
+        };
+
+        // Parse URL parameters
+        function getParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                id: params.get('id') || params.get('customerId'),
+                name: params.get('name') || params.get('customerName'),
+                indicators: (params.get('indicators') || params.get('ind') || '').toLowerCase().split(',').filter(i => i.trim())
+            };
+        }
+
+        // Initialize page
+        function init() {
+            const params = getParams();
+
+            if (!params.id || !params.indicators.length) {
+                document.getElementById('mainContent').classList.add('hidden');
+                document.querySelector('.header').classList.add('hidden');
+                document.getElementById('errorState').classList.remove('hidden');
+                return;
+            }
+
+            // Set customer info
+            document.getElementById('customerName').textContent = decodeURIComponent(params.name || 'Customer');
+            document.getElementById('customerId').textContent = params.id;
+
+            // Separate indicators by type
+            const goodIndicators = [];
+            const badIndicators = [];
+            const inconclusiveIndicators = [];
+
+            params.indicators.forEach(code => {
+                const indicator = INDICATORS[code];
+                if (indicator) {
+                    if (indicator.type === 'good') goodIndicators.push({ code, ...indicator });
+                    else if (indicator.type === 'bad') badIndicators.push({ code, ...indicator });
+                    else inconclusiveIndicators.push({ code, ...indicator });
+                }
+            });
+
+            // Show good indicators if any
+            if (goodIndicators.length > 0) {
+                const goodSection = document.getElementById('goodSection');
+                const goodItems = document.getElementById('goodItems');
+                goodSection.classList.remove('hidden');
+
+                goodIndicators.forEach(ind => {
+                    const item = document.createElement('div');
+                    item.className = 'good-item';
+                    item.innerHTML = `<span class="check">&#10003;</span> ${ind.title}`;
+                    goodItems.appendChild(item);
+                });
+            }
+
+            // Build indicator cards
+            const cardsContainer = document.getElementById('indicatorCards');
+
+            // Bad indicators first
+            badIndicators.forEach(ind => {
+                cardsContainer.appendChild(createIndicatorCard(ind, 'bad'));
+            });
+
+            // Then inconclusive
+            inconclusiveIndicators.forEach(ind => {
+                cardsContainer.appendChild(createIndicatorCard(ind, 'inconclusive'));
+            });
+        }
+
+        // Create an indicator card
+        function createIndicatorCard(indicator, type) {
+            const card = document.createElement('div');
+            card.className = `indicator-card ${type}`;
+            card.innerHTML = `
+                <div class="indicator-header">
+                    <div class="indicator-icon">${type === 'bad' ? '&#10007;' : '?'}</div>
+                    <div>
+                        <div class="indicator-title">${indicator.title}</div>
+                        <div class="indicator-description">${indicator.description}</div>
+                    </div>
+                </div>
+                <div class="indicator-response">
+                    <label for="response-${indicator.code}">Your Response</label>
+                    <textarea
+                        id="response-${indicator.code}"
+                        data-code="${indicator.code}"
+                        data-title="${indicator.title}"
+                        placeholder="Please describe your process or provide clarification..."
+                    ></textarea>
+                </div>
+            `;
+            return card;
+        }
+
+        // Send email
+        function sendEmail() {
+            const params = getParams();
+            const textareas = document.querySelectorAll('textarea[data-code]');
+
+            let bodyParts = [];
+
+            textareas.forEach(textarea => {
+                const title = textarea.dataset.title;
+                const response = textarea.value.trim() || '[No response provided]';
+                bodyParts.push(`${title}:\n${response}`);
+            });
+
+            const subject = encodeURIComponent(`ARMOR Checklist Follow-up - ${decodeURIComponent(params.name || 'Customer')}`);
+            const body = encodeURIComponent(
+`Hello ARMOR Team,
+
+I am providing additional information for my checklist follow-up.
+
+Customer: ${decodeURIComponent(params.name || 'Customer')} (ID: ${params.id})
+
+---
+
+${bodyParts.join('\n\n---\n\n')}
+
+---
+
+Thank you,
+${decodeURIComponent(params.name || 'Customer')}`
+            );
+
+            window.location.href = `mailto:armor@phoneburner.com?subject=${subject}&body=${body}`;
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
